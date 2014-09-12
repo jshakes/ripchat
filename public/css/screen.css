@@ -96,25 +96,29 @@ body,
 .chat-container .chat-messages .chat-message .chat-message-content {
   width: 90%;
 }
-/* line 87, ../../assets/scss/screen.scss */
+/* line 84, ../../assets/scss/screen.scss */
+.chat-container .chat-messages .chat-message.self {
+  background: #F7F9FA;
+}
+/* line 90, ../../assets/scss/screen.scss */
 .chat-container .chat-pane {
   height: 100%;
   position: relative;
   padding-bottom: 10%;
 }
-/* line 91, ../../assets/scss/screen.scss */
+/* line 94, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 10%;
 }
-/* line 96, ../../assets/scss/screen.scss */
+/* line 99, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form textarea {
   height: 100%;
   padding-right: 6em;
 }
-/* line 100, ../../assets/scss/screen.scss */
+/* line 103, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form button {
   position: absolute;
   top: 1em;

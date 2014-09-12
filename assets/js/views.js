@@ -16,9 +16,9 @@ Ripchat.MessageItem = Marionette.ItemView.extend({
   onRender: function() {
 
     // If the message is from the other user, add a class to the el
-    if(this.model.get("remote")) {
+    if(this.model.get("fromSelf")) {
 
-      this.$el.addClass("remote");
+      this.$el.addClass("self");
     }
   }
 });
@@ -28,7 +28,8 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
   childView: Ripchat.MessageItem,
   childViewContainer: ".message-list",
   events: {
-    "keyup .chat-new-message-field": "onKeyup"
+    "keyup .chat-new-message-field": "onKeyup",
+    "click .chat-new-message-submit": "sendMessage"
   },
   initialize: function() {
 
@@ -42,8 +43,14 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
     if(e.which === 13) {
 
       e.preventDefault();
-      Ripchat.Controller.sendNewMessage(content);
-      $(e.currentTarget).val("");
+      this.sendMessage();
     }
+  },
+  sendMessage: function(e) {
+
+    var $msgField = $(".chat-new-message-field");
+    var content = $msgField.val();
+    Ripchat.Controller.sendNewMessage(content);
+    $msgField.val("");
   }
 });

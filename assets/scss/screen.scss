@@ -81,6 +81,9 @@ body,
       .chat-message-content {
         width: 90%;
       }
+      &.self {
+        background: #F7F9FA;
+      }
     }
   }
 

@@ -4,7 +4,7 @@ Ripchat.Controller = {
     var messageCollection = Ripchat.request("messageCollection");
     var socket = Ripchat.request("activeSocket");
     if(data.sender !== socket.id) {
-      data.remote = true;
+      data.fromSelf = true;
     }
     messageCollection.add(data);
   },
@@ -12,7 +12,10 @@ Ripchat.Controller = {
 
     // Get the currently active socket object
     var socket = Ripchat.request("activeSocket");
-    socket.emit("newMessage", content);
-    Chat.Controller.userIsNotTyping();
+    var data = {
+      content: content,
+      sender: $("#username-input").val()
+    };
+    socket.emit("newMessage", data);
   }
 };

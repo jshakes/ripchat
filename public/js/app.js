@@ -51,7 +51,7 @@ Ripchat.Controller = {
     var messageCollection = Ripchat.request("messageCollection");
     var socket = Ripchat.request("activeSocket");
     if(data.sender !== socket.id) {
-      data.remote = true;
+      data.fromSelf = true;
     }
     messageCollection.add(data);
   },
@@ -59,15 +59,18 @@ Ripchat.Controller = {
 
     // Get the currently active socket object
     var socket = Ripchat.request("activeSocket");
-    socket.emit("newMessage", content);
-    Chat.Controller.userIsNotTyping();
+    var data = {
+      content: content,
+      sender: $("#username-input").val()
+    };
+    socket.emit("newMessage", data);
   }
 };
 Ripchat.module("Entities", function(Entities, Ripchat, Backbone, Marionette, $, _){
 
   Entities.Message = Backbone.Model.extend({
-    defaults: {
-      timestamp: new Date().getTime()
+    initialize: function() {
+      this.set("timestamp", new Date().getTime());
     }
   });
 
@@ -119,9 +122,9 @@ Ripchat.MessageItem = Marionette.ItemView.extend({
   onRender: function() {
 
     // If the message is from the other user, add a class to the el
-    if(this.model.get("remote")) {
+    if(this.model.get("fromSelf")) {
 
-      this.$el.addClass("remote");
+      this.$el.addClass("self");
     }
   }
 });
@@ -131,7 +134,8 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
   childView: Ripchat.MessageItem,
   childViewContainer: ".message-list",
   events: {
-    "keyup .chat-new-message-field": "onKeyup"
+    "keyup .chat-new-message-field": "onKeyup",
+    "click .chat-new-message-submit": "sendMessage"
   },
   initialize: function() {
 
@@ -145,8 +149,14 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
     if(e.which === 13) {
 
       e.preventDefault();
-      Ripchat.Controller.sendNewMessage(content);
-      $(e.currentTarget).val("");
+      this.sendMessage();
     }
+  },
+  sendMessage: function(e) {
+
+    var $msgField = $(".chat-new-message-field");
+    var content = $msgField.val();
+    Ripchat.Controller.sendNewMessage(content);
+    $msgField.val("");
   }
 });

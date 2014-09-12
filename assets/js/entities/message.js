@@ -1,8 +1,8 @@
 Ripchat.module("Entities", function(Entities, Ripchat, Backbone, Marionette, $, _){
 
   Entities.Message = Backbone.Model.extend({
-    defaults: {
-      timestamp: new Date().getTime()
+    initialize: function() {
+      this.set("timestamp", new Date().getTime());
     }
   });
 
