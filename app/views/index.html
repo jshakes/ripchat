@@ -39,26 +39,7 @@
           </ul>
         </div>
 
-        <div class="chat-pane">
-          <div class="chat-messages">
-            <ul class="list-unstyled">
-              <li class="chat-message">
-                <span class="chat-message-from">jshakes</span>
-                <span class="chat-message-content">Hi there</span>
-                <span class="chat-message-timestamp">12:09pm</span>
-              </li>
-              <li class="chat-message">
-                <span class="chat-message-from">gerrit</span>
-                <span class="chat-message-content">Hello!</span>
-                <span class="chat-message-timestamp">12:10pm</span>
-              </li>
-            </ul>
-          </div>
-          <div class="chat-form">
-            <textarea class="form-control chat-new-message-field"></textarea>
-            <button class="btn btn-default chat-new-message-submit">Send</button>
-          </div>
-        </div>
+        <div class="chat-pane"></div>
       </div> 
 
       <div class="footer">
@@ -69,9 +50,14 @@
     <script src="/js/vendors.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/templates.js"></script>
+    <script src="http://{{ host }}:1337/socket.io/socket.io.js"></script>
     <script>
     $(function() {
+      var socket = io.connect('http://{{ host }}:1337');
       Ripchat.start();
+      socket.on('connect', function (data) {
+        Ripchat.API.onUserConnect(socket);
+      });
     });
     </script>
 </body>
