@@ -18,6 +18,28 @@ body,
     margin: 0;
     color: white;
   }
+  .username-change {
+    position: absolute;
+    top: 1.3em;
+    right: 1em;
+    color: white;
+    label {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    input {
+      position: absolute;
+      left: -999em;
+      color: black;
+      &:focus {
+        position: static;
+        left: auto;
+        & + label {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 .chat-container {

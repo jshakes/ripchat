@@ -13,24 +13,24 @@ Ripchat.API = {
   }
 };
 
-Ripchat.on("start", function(){
+Ripchat.on("before:start", function() {
 
-  // Declare a region to display our messages in
-  var messagesRegion = new Marionette.Region({
-    el: ".chat-pane"
-  });
+  Ripchat.UI = new AppLayout();
+});
+
+Ripchat.on("start", function(){
 
   // Create a new message collection
   var messageCollection = Ripchat.request("newMessageCollection:entities", [{
-    sender: "jshakes",
-    content: "hello"
+    sender: "admin",
+    content: "Welcome to Ripchat!"
   }]);
 
   var messageList = new Ripchat.ChatContainer({
     collection: messageCollection
   });
 
-  messagesRegion.show(messageList);
+  Ripchat.UI.messages.show(messageList);
 
   // Set up a handler to get the message collection
   Ripchat.reqres.setHandler("messageCollection", function() {
@@ -81,6 +81,25 @@ Ripchat.module("Entities", function(Entities, Ripchat, Backbone, Marionette, $, 
     
     return new Entities.MessageCollection(models);
   });
+});
+// Declare a region to display our messages in
+var messagesRegion = new Marionette.Region({
+  el: ".chat-pane"
+});
+
+AppLayout =  Marionette.LayoutView.extend({
+  el: "body",
+  events: {
+    "change #username-input": "changeUsername"
+  },
+  regions: {
+    header: ".page-header",
+    messages: messagesRegion
+  },
+  changeUsername: function(e) {
+    var $input = $(e.currentTarget);
+    var $label = $("label[for=" + $input.attr("id") + "]").html($input.val());
+  }
 });
 Ripchat.MessageItem = Marionette.ItemView.extend({
   template: "chat-message",
