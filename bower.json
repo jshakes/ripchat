@@ -1,0 +1,12 @@
+{
+  "name": "ripchat",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.7.1",
+    "jquery": "~2.1.0",
+    "backbone.marionette": "~2.1.0",
+    "ejs": "~0.8.5",
+    "socket.io": "~0.9.15",
+    "bootstrap": "~3.2.0"
+  }
+}

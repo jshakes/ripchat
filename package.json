@@ -1,0 +1,24 @@
+{
+  "name": "ripchat",
+  "version": "0.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "bower": "~1.2.8",
+    "compass": "~0.1.0",
+    "express": "~3.4.8",
+    "grunt": "~0.4.2",
+    "grunt-contrib-compass": "~0.7.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-sass": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-jsttojs": "~0.1.0",
+    "http": "0.0.0",
+    "socket.io": "^0.9.17",
+    "swig": "~1.3.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jshakes/ripchat"
+  }
+}

@@ -1,0 +1,85 @@
+html,
+body,
+.wrapper {
+  height: 100%;
+}
+
+.page-header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 1em;
+  margin: 0;
+  height: 4em;
+  background: gray;
+  border-bottom: 1px solid #eee;
+  z-index: 1;
+  h3 {
+    margin: 0;
+    color: white;
+  }
+}
+
+.chat-container {
+  position: relative;
+  padding: 4em 0 0 25%;
+  width: 100%;
+  height: 100%;
+
+  .chat-rooms {
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    border-right: 1px solid #eee;
+    .chat-room-select {
+      display: block;
+      padding: .5em;
+      border-bottom: 1px solid #eee;
+      &:hover {
+        background: #e1e1e1;
+      }
+    }
+  }
+
+  .chat-messages {
+    .chat-message {
+      display: table;
+      border-bottom: 1px solid #f1f1f1;
+      & > * {
+        display: table-cell;
+        padding: .5em;
+      }
+      .chat-message-from {
+        background: #F7F9FA;
+        min-width: 7em;
+        border-right: 1px solid #eee;
+        width: 5%;
+      }
+      .chat-message-content {
+        width: 90%;
+      }
+    }
+  }
+
+  .chat-pane {
+    height: 100%;
+    position: relative;
+    padding-bottom: 10%;
+    .chat-form {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 10%;
+      textarea {
+        height: 100%;
+        padding-right: 6em;
+      }
+      button {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+      }
+    }
+  }
+}
