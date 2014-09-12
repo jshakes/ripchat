@@ -25,5 +25,7 @@ Ripchat.Controller = {
 
     var messagesView = Ripchat.request("messageList", roomId);
     messagesRegion.show(messagesView);
+    var socket = Ripchat.request("activeSocket");
+    socket.emit("joinRoom", roomId);
   }
 };

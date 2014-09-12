@@ -70,7 +70,7 @@ Ripchat.Controller = {
       data.fromSelf = true;
     }
     // Dispatch the message to the correct room
-    var messageCollection = Ripchat.request("messageCollection", roomId);
+    var messageCollection = Ripchat.request("messageCollection", data.roomId);
     messageCollection.add(data);
   },
   sendNewMessage: function(content, roomId) {
@@ -88,6 +88,8 @@ Ripchat.Controller = {
 
     var messagesView = Ripchat.request("messageList", roomId);
     messagesRegion.show(messagesView);
+    var socket = Ripchat.request("activeSocket");
+    socket.emit("joinRoom", roomId);
   }
 };
 Ripchat.module("Entities", function(Entities, Ripchat, Backbone, Marionette, $, _){

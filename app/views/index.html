@@ -59,9 +59,9 @@
     <script>
     $(function() {
       var socket = io.connect('http://{{ host }}:1337');
-      Ripchat.start();
       socket.on('connect', function (data) {
         Ripchat.API.onUserConnect(socket);
+        Ripchat.start();
       });
     });
     </script>

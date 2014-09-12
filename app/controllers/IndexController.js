@@ -10,8 +10,14 @@ var io = require('socket.io').listen(1337);
 
 io.sockets.on('connection', function (socket) {
 
+  socket.on('joinRoom', function(roomId) {
+    
+    console.log('User joined room');
+    socket.join(roomId);
+  });
   socket.on('newMessage', function(data) {
 
-    io.sockets.emit('newMessage', data);
+    var roomId = data.roomId;
+    io.sockets.in(roomId).emit('newMessage', data);
   });
 });
