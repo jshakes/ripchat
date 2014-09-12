@@ -3,7 +3,7 @@ Ripchat.Controller = {
 
     var messageCollection = Ripchat.request("messageCollection");
     var socket = Ripchat.request("activeSocket");
-    if(data.sender !== socket.id) {
+    if(data.senderId === socket.id) {
       data.fromSelf = true;
     }
     // Dispatch the message to the correct room
