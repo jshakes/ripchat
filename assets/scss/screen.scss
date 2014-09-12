@@ -56,11 +56,24 @@ body,
     border-right: 1px solid #eee;
     .chat-room-select {
       display: block;
+      position: relative;
       padding: .5em;
       border-bottom: 1px solid #eee;
       &:hover,
       &.selected {
         background: #E6EFF3;
+      }
+      &.joined:after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background: limegreen;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        right: 10px;
+        top: 50%;
+        margin-top: -5px;
       }
     }
   }

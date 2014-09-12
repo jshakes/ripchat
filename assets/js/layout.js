@@ -23,5 +23,6 @@ AppLayout =  Marionette.LayoutView.extend({
     Ripchat.Controller.changeRoom(roomId);
     $(".chat-room-select").removeClass("selected");
     $(e.currentTarget).addClass("selected");
+    $(e.currentTarget).addClass("joined");
   }
 });
