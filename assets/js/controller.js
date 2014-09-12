@@ -7,7 +7,7 @@ Ripchat.Controller = {
       data.fromSelf = true;
     }
     // Dispatch the message to the correct room
-    var messageCollection = Ripchat.request("messageCollection", roomId);
+    var messageCollection = Ripchat.request("messageCollection", data.roomId);
     messageCollection.add(data);
   },
   sendNewMessage: function(content, roomId) {
