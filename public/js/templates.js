@@ -1,1 +1,1 @@
-window.TWM.templates = {}
+window.Ripchat.templates = {}

@@ -55,7 +55,7 @@ module.exports = function(grunt){
       root: "./assets/templates",
       output: "public/js/templates.js",
       ext: "ejs",
-      name: "TWM.templates",
+      name: "Ripchat.templates",
       removebreak: true
     }
   });
