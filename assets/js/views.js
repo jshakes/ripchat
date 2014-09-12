@@ -31,10 +31,6 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
     "keyup .chat-new-message-field": "onKeyup",
     "click .chat-new-message-submit": "sendMessage"
   },
-  initialize: function() {
-
-    console.log(this.collection);
-  },
   onKeyup: function(e) {
 
     var content = $(e.currentTarget).val();
@@ -50,7 +46,8 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
 
     var $msgField = $(".chat-new-message-field");
     var content = $msgField.val();
-    Ripchat.Controller.sendNewMessage(content);
+    var roomId = this.collection.roomId;
+    Ripchat.Controller.sendNewMessage(content, roomId);
     $msgField.val("");
   }
 });

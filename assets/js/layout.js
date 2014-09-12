@@ -6,7 +6,8 @@ var messagesRegion = new Marionette.Region({
 AppLayout =  Marionette.LayoutView.extend({
   el: "body",
   events: {
-    "change #username-input": "changeUsername"
+    "change #username-input": "changeUsername",
+    "click .chat-room-select": "onRoomSelect"
   },
   regions: {
     header: ".page-header",
@@ -15,5 +16,12 @@ AppLayout =  Marionette.LayoutView.extend({
   changeUsername: function(e) {
     var $input = $(e.currentTarget);
     var $label = $("label[for=" + $input.attr("id") + "]").html($input.val());
+  },
+  onRoomSelect: function(e) {
+
+    var roomId = $(e.currentTarget).attr("data-roomId");
+    Ripchat.Controller.changeRoom(roomId);
+    $(".chat-room-select").removeClass("selected");
+    $(e.currentTarget).addClass("selected");
   }
 });

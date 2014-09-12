@@ -58,8 +58,9 @@ body,
       display: block;
       padding: .5em;
       border-bottom: 1px solid #eee;
-      &:hover {
-        background: #e1e1e1;
+      &:hover,
+      &.selected {
+        background: #E6EFF3;
       }
     }
   }

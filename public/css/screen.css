@@ -72,53 +72,53 @@ body,
   border-bottom: 1px solid #eee;
 }
 /* line 61, ../../assets/scss/screen.scss */
-.chat-container .chat-rooms .chat-room-select:hover {
-  background: #e1e1e1;
+.chat-container .chat-rooms .chat-room-select:hover, .chat-container .chat-rooms .chat-room-select.selected {
+  background: #E6EFF3;
 }
-/* line 68, ../../assets/scss/screen.scss */
+/* line 69, ../../assets/scss/screen.scss */
 .chat-container .chat-messages .chat-message {
   display: table;
   border-bottom: 1px solid #f1f1f1;
 }
-/* line 71, ../../assets/scss/screen.scss */
+/* line 72, ../../assets/scss/screen.scss */
 .chat-container .chat-messages .chat-message > * {
   display: table-cell;
   padding: .5em;
 }
-/* line 75, ../../assets/scss/screen.scss */
+/* line 76, ../../assets/scss/screen.scss */
 .chat-container .chat-messages .chat-message .chat-message-from {
   background: #F7F9FA;
   min-width: 7em;
   border-right: 1px solid #eee;
   width: 5%;
 }
-/* line 81, ../../assets/scss/screen.scss */
+/* line 82, ../../assets/scss/screen.scss */
 .chat-container .chat-messages .chat-message .chat-message-content {
   width: 90%;
 }
-/* line 84, ../../assets/scss/screen.scss */
+/* line 85, ../../assets/scss/screen.scss */
 .chat-container .chat-messages .chat-message.self {
   background: #F7F9FA;
 }
-/* line 90, ../../assets/scss/screen.scss */
+/* line 91, ../../assets/scss/screen.scss */
 .chat-container .chat-pane {
   height: 100%;
   position: relative;
   padding-bottom: 10%;
 }
-/* line 94, ../../assets/scss/screen.scss */
+/* line 95, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 10%;
 }
-/* line 99, ../../assets/scss/screen.scss */
+/* line 100, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form textarea {
   height: 100%;
   padding-right: 6em;
 }
-/* line 103, ../../assets/scss/screen.scss */
+/* line 104, ../../assets/scss/screen.scss */
 .chat-container .chat-pane .chat-form button {
   position: absolute;
   top: 1em;

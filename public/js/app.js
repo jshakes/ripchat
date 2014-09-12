@@ -20,24 +20,40 @@ Ripchat.on("before:start", function() {
 
 Ripchat.on("start", function(){
 
-  // Create a new message collection
-  var messageCollection = Ripchat.request("newMessageCollection:entities", [{
-    sender: "admin",
-    content: "Welcome to Ripchat!"
-  }]);
+  var rooms = ["developers", "designers", "producers"];
+  var messageCollections = {};
 
-  var messageList = new Ripchat.ChatContainer({
-    collection: messageCollection
+  // Create a new message collection for each room
+  for(var i = 0; i< rooms.length; i++) {
+
+    var roomId = rooms[i];
+
+    var messageCollection = Ripchat.request("newMessageCollection:entities", [{
+      sender: "admin",
+      content: "Welcome to the " + roomId + " room!"
+    }]);
+
+    messageCollection.roomId = roomId;
+
+    // Save the collections and views to our objects
+    messageCollections[roomId] = messageCollection;
+  }
+
+  // Set up a handler to get the message collections
+  Ripchat.reqres.setHandler("messageCollection", function(roomId) {
+
+    return messageCollections[roomId];
+  });
+  // Set up a handler to get the message views
+  Ripchat.reqres.setHandler("messageList", function(roomId) {
+
+    return new Ripchat.ChatContainer({
+      collection: messageCollections[roomId]
+    });
   });
 
-  Ripchat.UI.messages.show(messageList);
-
-  // Set up a handler to get the message collection
-  Ripchat.reqres.setHandler("messageCollection", function() {
-
-    return messageCollection;
-  })
-
+  // Display the first room by default
+  Ripchat.Controller.changeRoom(rooms[0]);
 });
 Backbone.Marionette.Renderer.render = function(templateId, data){
   
@@ -53,17 +69,25 @@ Ripchat.Controller = {
     if(data.sender !== socket.id) {
       data.fromSelf = true;
     }
+    // Dispatch the message to the correct room
+    var messageCollection = Ripchat.request("messageCollection", roomId);
     messageCollection.add(data);
   },
-  sendNewMessage: function(content) {
+  sendNewMessage: function(content, roomId) {
 
     // Get the currently active socket object
     var socket = Ripchat.request("activeSocket");
     var data = {
       content: content,
+      roomId: roomId,
       sender: $("#username-input").val()
     };
     socket.emit("newMessage", data);
+  },
+  changeRoom: function(roomId) {
+
+    var messagesView = Ripchat.request("messageList", roomId);
+    messagesRegion.show(messagesView);
   }
 };
 Ripchat.module("Entities", function(Entities, Ripchat, Backbone, Marionette, $, _){
@@ -93,7 +117,8 @@ var messagesRegion = new Marionette.Region({
 AppLayout =  Marionette.LayoutView.extend({
   el: "body",
   events: {
-    "change #username-input": "changeUsername"
+    "change #username-input": "changeUsername",
+    "click .chat-room-select": "onRoomSelect"
   },
   regions: {
     header: ".page-header",
@@ -102,6 +127,13 @@ AppLayout =  Marionette.LayoutView.extend({
   changeUsername: function(e) {
     var $input = $(e.currentTarget);
     var $label = $("label[for=" + $input.attr("id") + "]").html($input.val());
+  },
+  onRoomSelect: function(e) {
+
+    var roomId = $(e.currentTarget).attr("data-roomId");
+    Ripchat.Controller.changeRoom(roomId);
+    $(".chat-room-select").removeClass("selected");
+    $(e.currentTarget).addClass("selected");
   }
 });
 Ripchat.MessageItem = Marionette.ItemView.extend({
@@ -137,10 +169,6 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
     "keyup .chat-new-message-field": "onKeyup",
     "click .chat-new-message-submit": "sendMessage"
   },
-  initialize: function() {
-
-    console.log(this.collection);
-  },
   onKeyup: function(e) {
 
     var content = $(e.currentTarget).val();
@@ -156,7 +184,8 @@ Ripchat.ChatContainer = Marionette.CompositeView.extend({
 
     var $msgField = $(".chat-new-message-field");
     var content = $msgField.val();
-    Ripchat.Controller.sendNewMessage(content);
+    var roomId = this.collection.roomId;
+    Ripchat.Controller.sendNewMessage(content, roomId);
     $msgField.val("");
   }
 });
